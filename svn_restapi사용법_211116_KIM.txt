@@ -1,0 +1,113 @@
+svn rest api 
+
+https://blog.daum.net/wetet/1844
+
+https://wiki.svnkit.com/
+
+1. 접속
+
+SVNRepositoryFactoryImpl.setup();
+
+repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(props.getProperty("svn_url")));
+
+ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(props.getProperty("svn_user"), props.getProperty("svn_passwd"));
+
+repository.setAuthenticationManager(authManager);
+
+repository.testConnection();
+
+
+
+2.로그 검색
+
+long startRevision = 24947; 
+
+long endRevision = -1;
+
+long limit = 0;
+
+LogSearchHandler handler = new LogSearchHandler();
+
+String[] strArray = search.toLowerCase().split(",");
+
+handler.setConditions(strArray);
+
+repository.log(new String[]{}, startRevision, endRevision, true, true, limit, true, new String[]{}, handler);
+
+
+
+public static class LogSearchHandler implements ISVNLogEntryHandler{
+
+		private String[] conditions = null;
+
+		public LogSearchHandler(){}
+
+		public void setConditions(String[] strArray) {
+
+			this.conditions = strArray;
+
+		}
+
+		@Override
+
+		public void handleLogEntry(SVNLogEntry entry) throws SVNException {
+
+			String fullStr = null;
+
+			CharSequence cs = null;
+
+			Iterator iter = entry.getChangedPaths().keySet().iterator();
+
+			while(iter.hasNext()){
+
+				
+
+				SVNLogEntryPath path =  entry.getChangedPaths().get(iter.next());
+
+				if(path.getPath().startsWith(SVNManager.getProperties().getProperty("project_name"))){
+
+					fullStr = entry.getRevision()+" "+entry.getAuthor().toLowerCase()+" "
+
+							+path.getPath().toLowerCase()+" "+entry.getMessage().toLowerCase();
+
+					
+
+					for(String search : conditions){
+
+						cs = search.trim().toLowerCase();
+
+						if(fullStr.contains(cs)){
+
+							SVNFileInfo info = new SVNFileInfo();
+
+							info.setRevision(entry.getRevision());
+
+							info.setAuthor(entry.getAuthor());
+
+							info.setType(String.valueOf(path.getType()));
+
+							info.setPath(path.getPath());
+
+							info.setMessage(entry.getMessage());
+
+							info.setDate(entry.getDate());
+
+							logList.add(info);
+
+							break;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+	} 
+
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=bb_&logNo=221575877784
+
+path : /itg_project-NKIA-BASE-8.1/src/main/webapp/itg/system/board/notice.nvf	, type : M

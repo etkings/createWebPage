@@ -1,0 +1,165 @@
+Jenkins 사용법
+
+curl -X POST http://localhost:18080/job/test/build --user admin:nkia1234 -v
+
+http://localhost:18080/job/test/build?token=nkia1234
+
+Ansible 을 사용하여 EC2 인스턴스 웹서버 구성
+https://ichi.pro/ko/han-beon-ui-keullig-eulo-ansibleeul-sayonghayeo-ec2-inseuteonseueseo-web-seobeo-guseong-144120249894238
+
+https://blog.eomsh.com/3
+
+https://www.jenkins.io/doc/book/system-administration/authenticating-scripted-clients/
+
+http://localhost:18080/api
+
+public class JenkinsScraper {
+
+    public String scrape(String urlString, String username, String password)
+        throws ClientProtocolException, IOException {
+        URI uri = URI.create(urlString);
+        HttpHost host = new HttpHost(uri.getHost(), uri.getPort(), uri.getScheme());
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(new AuthScope(uri.getHost(), uri.getPort()),
+            new UsernamePasswordCredentials(username, password));
+        // Create AuthCache instance
+        AuthCache authCache = new BasicAuthCache();
+        // Generate BASIC scheme object and add it to the local auth cache
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(host, basicAuth);
+        CloseableHttpClient httpClient =
+            HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
+        HttpGet httpGet = new HttpGet(uri);
+        // Add AuthCache to the execution context
+        HttpClientContext localContext = HttpClientContext.create();
+        localContext.setAuthCache(authCache);
+
+        HttpResponse response = httpClient.execute(host, httpGet, localContext);
+
+        return EntityUtils.toString(response.getEntity());
+    }
+
+}
+
+
+http://localhost:18080/job/test/api/json
+
+
+{
+"_class":"hudson.model.FreeStyleProject",
+"actions":
+[{},{},{"_class":"org.jenkinsci.plugins.displayurlapi.actions.JobDisplayAction"},
+{"_class":"com.cloudbees.plugins.credentials.ViewCredentialsAction"}],
+
+"description":"Jenkins Job 호출 테스트용",
+"displayName":"test",
+"displayNameOrNull":null,
+"fullDisplayName":"test",
+"fullName":"test",
+"name":"test",
+"url":"http://localhost:18080/job/test/",
+"buildable":true,
+"builds":
+[{"_class":"hudson.model.FreeStyleBuild","number":8,"url":"http://localhost:18080/job/test/8/"},
+{"_class":"hudson.model.FreeStyleBuild","number":7,"url":"http://localhost:18080/job/test/7/"},
+{"_class":"hudson.model.FreeStyleBuild","number":6,"url":"http://localhost:18080/job/test/6/"},
+{"_class":"hudson.model.FreeStyleBuild","number":5,"url":"http://localhost:18080/job/test/5/"},
+{"_class":"hudson.model.FreeStyleBuild","number":4,"url":"http://localhost:18080/job/test/4/"},
+{"_class":"hudson.model.FreeStyleBuild","number":3,"url":"http://localhost:18080/job/test/3/"},
+{"_class":"hudson.model.FreeStyleBuild","number":2,"url":"http://localhost:18080/job/test/2/"},
+{"_class":"hudson.model.FreeStyleBuild","number":1,"url":"http://localhost:18080/job/test/1/"}],
+
+"color":"blue",
+"firstBuild":
+{"_class":"hudson.model.FreeStyleBuild","number":1,
+"url":"http://localhost:18080/job/test/1/"},
+
+"healthReport":
+[{"description":"Build stability: No recent builds failed.",
+"iconClassName":"icon-health-80plus",
+"iconUrl":"health-80plus.png","score":100}],
+
+"inQueue":false,
+"keepDependencies":false,
+"lastBuild":{"_class":"hudson.model.FreeStyleBuild","number":8,"url":"http://localhost:18080/job/test/8/"},
+"lastCompletedBuild":{"_class":"hudson.model.FreeStyleBuild","number":8,"url":"http://localhost:18080/job/test/8/"},
+"lastFailedBuild":null,
+"lastStableBuild":{"_class":"hudson.model.FreeStyleBuild","number":8,"url":"http://localhost:18080/job/test/8/"},
+"lastSuccessfulBuild":{"_class":"hudson.model.FreeStyleBuild","number":8,"url":"http://localhost:18080/job/test/8/"},
+"lastUnstableBuild":null,
+"lastUnsuccessfulBuild":null,
+"nextBuildNumber":9,
+"property":[],
+"queueItem":null,"concurrentBuild":false,"disabled":false,"downstreamProjects":[],
+"labelExpression":null,
+"scm":{"_class":"hudson.scm.NullSCM"},"upstreamProjects":[]}
+
+
+http://localhost:18080/job/test/8/api/json
+
+{
+"_class":"hudson.model.FreeStyleBuild",
+"actions":[
+{"_class":"hudson.model.CauseAction",
+"causes":[
+{"_class":"hudson.model.Cause$RemoteCause",
+"shortDescription":"Started by remote host 127.0.0.1",
+"addr":"127.0.0.1","note":null}]
+},
+{},
+{"_class":"org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"}],
+
+"artifacts":[],
+"building":false
+,"description":null,
+"displayName":"#8",
+"duration":2077,
+"estimatedDuration":1796,
+"executor":null,
+"fullDisplayName":"test #8",
+"id":"8",
+"keepLog":false,
+"number":8,
+"queueId":8,
+"result":"SUCCESS",
+"timestamp":1637555083528,
+"url":"http://localhost:18080/job/test/8/",
+"builtOn":"",
+"changeSet":{"_class":"hudson.scm.EmptyChangeLogSet","items":[],"kind":null},"culprits":[]}
+
+
+
+
+
+
+http://localhost:18080/job/test/lastStableBuild/api/json
+
+{
+"_class":"hudson.model.FreeStyleBuild",
+"actions":
+[{"_class":"hudson.model.CauseAction",
+"causes":
+[{"_class":"hudson.model.Cause$RemoteCause","shortDescription":"Started by remote host 127.0.0.1","addr":"127.0.0.1","note":null}]},
+{},
+{"_class":"org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"}],
+
+"artifacts":[],
+"building":false,
+"description":null,
+"displayName":"#8",
+"duration":2077,
+"estimatedDuration":1796,
+"executor":null,
+"fullDisplayName":"test #8",
+"id":"8",
+"keepLog":false,
+"number":8,
+"queueId":8,
+"result":"SUCCESS",
+"timestamp":1637555083528,
+"url":"http://localhost:18080/job/test/8/",
+"builtOn":"",
+"changeSet":{"_class":"hudson.scm.EmptyChangeLogSet","items":[],"kind":null},"culprits":[]}
+
+
+

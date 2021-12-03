@@ -1,10 +1,12 @@
-Jenkins »ç¿ë¹ı
+Jenkins ì‚¬ìš©ë²•
 
 curl -X POST http://localhost:18080/job/test/build --user admin:nkia1234 -v
 
 http://localhost:18080/job/test/build?token=nkia1234
 
-Ansible À» »ç¿ëÇÏ¿© EC2 ÀÎ½ºÅÏ½º À¥¼­¹ö ±¸¼º
+http://localhost:18080/job/test/build?token=nkia12341111
+
+Ansible ì„ ì‚¬ìš©í•˜ì—¬ EC2 ì¸ìŠ¤í„´ìŠ¤ ì›¹ì„œë²„ êµ¬ì„±
 https://ichi.pro/ko/han-beon-ui-keullig-eulo-ansibleeul-sayonghayeo-ec2-inseuteonseueseo-web-seobeo-guseong-144120249894238
 
 https://blog.eomsh.com/3
@@ -51,7 +53,7 @@ http://localhost:18080/job/test/api/json
 [{},{},{"_class":"org.jenkinsci.plugins.displayurlapi.actions.JobDisplayAction"},
 {"_class":"com.cloudbees.plugins.credentials.ViewCredentialsAction"}],
 
-"description":"Jenkins Job È£Ãâ Å×½ºÆ®¿ë",
+"description":"Jenkins Job í˜¸ì¶œ í…ŒìŠ¤íŠ¸ìš©",
 "displayName":"test",
 "displayNameOrNull":null,
 "fullDisplayName":"test",

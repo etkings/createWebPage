@@ -14,6 +14,7 @@ package org.tmatesoft.svn.examples.repository;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util;
 
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;

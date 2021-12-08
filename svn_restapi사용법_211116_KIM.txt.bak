@@ -2,7 +2,7 @@ svn rest api
 
 https://blog.daum.net/wetet/1844
 
-1. Á¢¼Ó
+1.
 
 SVNRepositoryFactoryImpl.setup();
 
@@ -16,7 +16,7 @@ repository.testConnection();
 
 
 
-2.·Î±× °Ë»ö
+2.Â·ÃŽÂ±Ã— Â°Ã‹Â»Ã¶
 
 long startRevision = 24947; 
 

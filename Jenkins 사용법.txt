@@ -6,7 +6,7 @@ http://localhost:18080/job/test/build?token=nkia1234
 
 http://localhost:18080/job/test/build?token=nkia12341111
 
-Ansible 을 사용하여 EC2 인스턴스 웹서버 구성
+Ansible 을 사용하여 EC2 인스턴스 웹서버 
 https://ichi.pro/ko/han-beon-ui-keullig-eulo-ansibleeul-sayonghayeo-ec2-inseuteonseueseo-web-seobeo-guseong-144120249894238
 
 https://blog.eomsh.com/3

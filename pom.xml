@@ -62,14 +62,7 @@
         <artifactId>maven-scm-manager-plexus</artifactId>
         <version>1.12.0</version>
       </extension>
-      <!-- Doing site publishing manually for now -->
-<!--
-      <extension>
-        <groupId>org.kohsuke</groupId>
-        <artifactId>wagon-gitsite</artifactId>
-        <version>0.3.5</version>
-      </extension>
--->
+
     </extensions>
     <testResources>
       <testResource>

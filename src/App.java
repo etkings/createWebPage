@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * Hello world!
+ * Hello world
  *
  */
 public class App 
